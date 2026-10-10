@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Les apps de Wael</title>
+<meta name="description" content="Mon petit store perso : toutes mes applications web au même endroit.">
+<meta name="theme-color" content="#f6f4ff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14122b" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" type="image/png" href="/icons/icon-192.png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<style>
+:root{
+  --bg:#f6f4ff; --bg2:#ece8ff; --card:#ffffff; --ink:#1d1a36; --muted:#6a6688; --line:#e1ddf5;
+  --accent:#6b4cff; --accent2:#ff6fb1; --accent-ink:#fff; --chip:#ffffff; --shadow:0 1px 2px rgba(40,30,100,.06),0 8px 24px rgba(40,30,100,.08);
+  --ok:#0e8a5f; --okbg:#e0f6ec;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#14122b;--bg2:#1c1940;--card:#1e1b3d;--ink:#efedff;--muted:#a29fc4;--line:#322e5c;--chip:#1e1b3d;
+  --accent:#8f77ff;--accent2:#ff7fb8;--shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);--ok:#5fe0ac;--okbg:#12362b}
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);
+  background:radial-gradient(1200px 500px at 80% -10%,var(--bg2),transparent 70%),var(--bg);min-height:100vh;line-height:1.45}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px calc(40px + env(safe-area-inset-bottom))}
+header{padding:calc(36px + env(safe-area-inset-top)) 0 18px}
+.eyebrow{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{margin:6px 0 6px;font-size:clamp(1.9rem,5vw,3rem);line-height:1.1;letter-spacing:-.02em}
+h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);margin:0;font-size:1.05rem}
+.bar{position:sticky;top:0;z-index:5;padding:12px 0;background:linear-gradient(var(--bg) 70%,transparent)}
+.filters{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--chip);color:var(--ink);font:inherit;font-size:.95rem;font-weight:600;
+  padding:10px 16px;min-height:44px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip small{opacity:.7;font-weight:500;margin-left:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;margin-top:8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:12px;
+  box-shadow:var(--shadow);transition:transform .25s ease,border-color .25s ease}
+.card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.top{display:flex;gap:14px;align-items:center}
+.icon{width:68px;height:68px;border-radius:16px;flex:none;object-fit:cover;box-shadow:0 2px 8px rgba(0,0,0,.18);display:grid;place-items:center;
+  font-size:2rem;color:#fff;font-weight:800}
+.name{margin:0;font-size:1.15rem;line-height:1.2}
+.cat{font-size:.8rem;color:var(--muted);margin-top:3px}
+.desc{margin:0;color:var(--muted);font-size:.95rem;flex:1}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.tag{font-size:.75rem;font-weight:700;color:var(--ok);background:var(--okbg);padding:4px 10px;border-radius:999px}
+.open{margin-left:auto;text-decoration:none;background:var(--accent);color:var(--accent-ink);font-weight:700;padding:11px 22px;min-height:44px;
+  display:inline-flex;align-items:center;border-radius:999px;transition:filter .2s}
+.open:hover{filter:brightness(1.1)}
+.open:focus-visible,.chip:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+.howto{margin-top:34px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow)}
+.howto h2{margin:0 0 8px;font-size:1.2rem}
+.howto ol{margin:0;padding-left:1.2em;color:var(--muted)}
+.howto li{margin:4px 0}
+.howto b{color:var(--ink)}
+.note{margin:10px 0 0;color:var(--muted);font-size:.9rem}
+footer{margin-top:26px;color:var(--muted);font-size:.85rem;text-align:center}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+@media (max-width:520px){.wrap{padding:0 14px 32px}.grid{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Mon store perso</div>
+    <h1>Les apps de <span>Wael</span></h1>
+    <p class="sub">Toutes mes applications au même endroit : un clic, et c'est parti.</p>
+  </header>
+
+  <div class="bar"><div class="filters" id="filters" role="group" aria-label="Filtrer par catégorie"></div></div>
+  <main class="grid" id="grid" aria-live="polite"></main>
+
+  <section class="howto">
+    <h2>Installer une app sur la tablette</h2>
+    <ol>
+      <li>Ouvre l'app avec son bouton <b>Ouvrir</b>.</li>
+      <li>Dans Chrome, touche le menu <b>⋮</b> (en haut à droite).</li>
+      <li>Choisis <b>Installer l'application</b>.</li>
+    </ol>
+    <p class="note">Les apps marquées « installable » ont leur propre icône et s'ouvrent en plein écran.</p>
+  </section>
+  <footer>wael3rd.github.io · <span id="count"></span></footer>
+</div>
+
+<script>
+/* ============================================================
+   AJOUTER UNE APP : copie un bloc { ... } ci-dessous, colle-le dans
+   le tableau APPS (séparé par une virgule), puis commit + push.
+     name        : nom affiché
+     desc        : courte description (1 phrase)
+     url         : adresse de l'app (chemin commençant par /)
+     category    : "Enfants", "Jeux / Famille", "SF6 / jeux vidéo", "Outils"...
+                   (une nouvelle catégorie crée automatiquement un nouveau filtre)
+     icon        : chemin d'une image (ex "/mon-app/icons/icon-192.png"),
+                   ou "" pour une pastille générée
+     emoji       : emoji de la pastille quand icon est ""
+     installable : true si l'app a un manifest (affiche « installable »)
+   ============================================================ */
+const APPS = [
+  { name:"Cours Enfants", desc:"Le hub des apps d'apprentissage : calcul, espagnol et plus.", url:"/Cours_Enfants/", category:"Enfants", icon:"/Cours_Enfants/icons/icon-192.png", installable:true },
+  { name:"Calcul Champion", desc:"Tables d'addition et calcul rapide dans l'univers du foot.", url:"/Cours_Enfants/maths/", category:"Enfants", icon:"/Cours_Enfants/maths/icons/icon-192.png", installable:true },
+  { name:"Calcul — Entraînement", desc:"Additions et soustractions, simple et sans univers.", url:"/Cours_Enfants/calcul/", category:"Enfants", icon:"/Cours_Enfants/calcul/icons/icon-192.png", installable:true },
+  { name:"La Leyenda del Quetzal", desc:"Espagnol de 5e en aventure RPG.", url:"/Cours_Enfants/quetzal/", category:"Enfants", icon:"/Cours_Enfants/quetzal/icons/icon-192.png", installable:true },
+  { name:"Arabe à la maison", desc:"Apprendre l'arabe standard et le tunisien, leçon par leçon.", url:"/arabe-maison/", category:"Enfants", icon:"/arabe-maison/icons/icon-192.png", installable:true },
+  { name:"La Frise des Grandes Inventions", desc:"Frise 3D interactive de 18 inventions, expliquées à 7 ans, 12 ans et adultes.", url:"/MonPremierJeuPourMesEnfants/", category:"Enfants", icon:"", emoji:"💡", installable:false },
+  { name:"KitKat Fighters", desc:"13 KitKat japonais, 4 joueurs : goût, bizarre-o-mètre et tier list de la famille.", url:"/orderix/kitkat/", category:"Jeux / Famille", icon:"/orderix/kitkat/icons/icon-192.png", installable:true },
+  { name:"SF6 Native Menus Guide", desc:"Créer des menus natifs dans Street Fighter 6 avec REFramework Lua.", url:"/SF6_Tools/guide/", category:"SF6 / jeux vidéo", icon:"", emoji:"🥋", installable:false },
+  { name:"SF6-GIFMaker — Plan de reprise", desc:"Tableau de bord des epics et sous-tâches du projet SF6-GIFMaker.", url:"/sf6-gifmaker-board/", category:"SF6 / jeux vidéo", icon:"", emoji:"🎞️", installable:false },
+  { name:"Orderix — Dashboard", desc:"Tableau de bord du projet Orderix : production, stats, rétention.", url:"/orderix/", category:"Outils", icon:"", emoji:"📊", installable:false }
+];
+/* ============================================================ */
+
+const ALL = "Toutes";
+const COLORS = ["#6b4cff","#e8590c","#0b8f6a","#d6336c","#1c7ed6","#c2850c"];
+let current = ALL;
+const $ = id => document.getElementById(id);
+const hue = s => { let h=0; for (const c of s) h=(h*31+c.charCodeAt(0))>>>0; return COLORS[h%COLORS.length]; };
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+
+function iconHtml(a){
+  if (a.icon) return `<img class="icon" src="${esc(a.icon)}" alt="" width="68" height="68" loading="lazy">`;
+  const t = a.emoji || a.name.trim().slice(0,2).toUpperCase();
+  return `<div class="icon" aria-hidden="true" style="background:linear-gradient(135deg,${hue(a.name)},${hue(a.name+"x")})">${esc(t)}</div>`;
+}
+
+function renderFilters(){
+  const cats = [ALL, ...new Set(APPS.map(a=>a.category))];
+  $("filters").innerHTML = cats.map(c=>{
+    const n = c===ALL ? APPS.length : APPS.filter(a=>a.category===c).length;
+    return `<button class="chip" type="button" data-c="${esc(c)}" aria-pressed="${c===current}">${esc(c)}<small>${n}</small></button>`;
+  }).join("");
+}
+
+function renderGrid(){
+  const list = current===ALL ? APPS : APPS.filter(a=>a.category===current);
+  $("grid").innerHTML = list.length ? list.map(a=>`
+    <article class="card">
+      <div class="top">${iconHtml(a)}
+        <div><h3 class="name">${esc(a.name)}</h3><div class="cat">${esc(a.category)}</div></div></div>
+      <p class="desc">${esc(a.desc)}</p>
+      <div class="foot">${a.installable?'<span class="tag">installable</span>':'<span></span>'}
+        <a class="open" href="${esc(a.url)}" aria-label="Ouvrir ${esc(a.name)}">Ouvrir</a></div>
+    </article>`).join("") : '<p class="empty">Aucune app ici pour le moment.</p>';
+  $("count").textContent = APPS.length + " apps";
+}
+
+$("filters").addEventListener("click",e=>{
+  const b = e.target.closest(".chip"); if(!b) return;
+  current = b.dataset.c; renderFilters(); renderGrid();
+});
+renderFilters(); renderGrid();
+</script>
+</body>
+</html>
